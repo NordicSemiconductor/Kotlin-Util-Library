@@ -10,15 +10,19 @@ It contains extension methods for `ByteArray` allowing to read numbers in big-en
 order in various formats, bit operators for `Byte` and `Short` and methods for converting UUIDs to 
 and from `ByteArray`.
 
-#### Setting up
+### Setting up
 
 Add the following to your `build.gradle` file:
 
 ```groovy
-implementation "no.nordicsemi.kotlin:data:1.0.0"
+implementation "no.nordicsemi.kotlin:data:0.1.0"
 ```
 
-### Reading Integers
+### Documentation
+
+Dokka documentation can be found [here](https://nordicsemiconductor.github.io/Kotlin-Util-Library/).
+
+#### Reading Integers
 
 ```kotlin
 val array = byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21, 0x21, 0x43, 0x65, 0x87.toByte())
@@ -28,7 +32,7 @@ assertEquals(-2023406815, int1)
 assertEquals(-2023406815, int2)
 ```
 
-### Reading Floats
+#### Reading Floats
 
 Supported types include:
 * IEEE 754 single and double precision
@@ -42,7 +46,7 @@ assertEquals(36.4f, float1)
 assertEquals(34.79f, float2)
 ```
 
-### Bit operators
+#### Bit operators
 
 The library also contains extension methods for `Byte` allowing to perform bitwise operations.
 
@@ -63,7 +67,7 @@ assertEquals(0b1101_0100_1101_0100.toShort(), value shr 1)
 assertEquals(0b1111_1010_1001_1010.toShort(), value shr 4)
 ```
 
-### UUID
+#### UUID
 
 The library also contains extension methods for `ByteArray` allowing to convert UUIDs to and from `ByteArray`.
 
