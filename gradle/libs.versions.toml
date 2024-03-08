@@ -2,6 +2,7 @@
 kotlin = "1.9.23"
 
 nordicPlugins = "2.0.0"
+dokkaPlugin = "1.9.20"
 
 [libraries]
 kotlin-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
@@ -9,4 +10,5 @@ kotlin-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", ver
 [plugins]
 nordic-nexus-kotlin = { id = "no.nordicsemi.kotlin.gradle.nexus", version.ref = "nordicPlugins" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }
 
