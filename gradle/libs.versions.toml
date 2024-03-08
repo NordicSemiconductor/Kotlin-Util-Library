@@ -1,0 +1,12 @@
+[versions]
+kotlin = "1.9.23"
+
+nordicPlugins = "2.0.0"
+
+[libraries]
+kotlin-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
+
+[plugins]
+nordic-nexus-kotlin = { id = "no.nordicsemi.kotlin.gradle.nexus", version.ref = "nordicPlugins" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
