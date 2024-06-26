@@ -1,14 +1,14 @@
 [versions]
-kotlin = "1.9.23"
+kotlin = "2.0.0"
 
-nordicPlugins = "2.0.1"
+nordicPlugins = "2.3"
 dokkaPlugin = "1.9.20"
 
 [libraries]
 kotlin-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
 
 [plugins]
-nordic-nexus-kotlin = { id = "no.nordicsemi.kotlin.gradle.nexus", version.ref = "nordicPlugins" }
+nordic-nexus-kotlin = { id = "no.nordicsemi.jvm.plugin.nexus", version.ref = "nordicPlugins" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }
 
