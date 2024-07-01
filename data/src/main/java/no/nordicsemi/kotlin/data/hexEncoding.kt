@@ -34,6 +34,11 @@
 package no.nordicsemi.kotlin.data
 
 /**
+ * A type alias for a String containing a hex value.
+ */
+typealias HexString = String
+
+/**
  * Converts a byte array to a hex string.
  *
  * @param prefixOx Whether to prefix the hex string with 0x.
@@ -41,7 +46,7 @@ package no.nordicsemi.kotlin.data
  * @return Hex string representation of the byte array.
  */
 @OptIn(ExperimentalStdlibApi::class)
-fun ByteArray.toHexString(prefixOx: Boolean = false, format: HexFormat = HexFormat.UpperCase) =
+fun ByteArray.toHexString(prefixOx: Boolean = false, format: HexFormat = HexFormat.UpperCase): HexString =
     (if (prefixOx) "0x" else "") + toHexString(format)
 
 /**
@@ -49,4 +54,4 @@ fun ByteArray.toHexString(prefixOx: Boolean = false, format: HexFormat = HexForm
  * @param format The format of the hex string.
  */
 @OptIn(ExperimentalStdlibApi::class)
-fun String.decodeHex(format: HexFormat = HexFormat.UpperCase) = hexToByteArray(format)
+fun HexString.toByteArray(format: HexFormat = HexFormat.UpperCase) = hexToByteArray(format)
