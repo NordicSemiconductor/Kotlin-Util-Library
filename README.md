@@ -39,7 +39,7 @@ Supported types include:
 * IEEE 11073 32-bit and 16-bit
 
 ```kotlin
- val array = byteArrayOf(0xFF.toByte(), 0x00, 0x01, 0x6C, 0x97.toByte(), 0x0D, 0x00, 0xFE.toByte())
+val array = byteArrayOf(0xFF.toByte(), 0x00, 0x01, 0x6C, 0x97.toByte(), 0x0D, 0x00, 0xFE.toByte())
 val float1 = array.getFloat(0, FloatFormat.IEEE_11073_32_BIT, ByteOrder.BIG_ENDIAN)
 val float2 = array.getFloat(4, FloatFormat.IEEE_11073_32_BIT, ByteOrder.LITTLE_ENDIAN)
 assertEquals(36.4f, float1)
