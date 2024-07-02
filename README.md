@@ -24,7 +24,7 @@ Artifacts can be found on [Maven Central repository](https://central.sonatype.co
 
 ### Documentation
 
-Dokka documentation can be found [here](https://nordicsemiconductor.github.io/Kotlin-Util-Library/).
+Dokka documentation can be found [here](https://nordicsemiconductor.github.io/Kotlin-Util-Library/data/no.nordicsemi.kotlin.data/index.html).
 
 #### Reading Integers
 
