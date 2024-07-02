@@ -4,6 +4,8 @@ This repository contains set of Kotlin-only (no Android dependency) libraries fo
 
 ## Data
 
+![Maven Central Version](https://img.shields.io/maven-central/v/no.nordicsemi.kotlin/data)
+
 Kotlin library for data manipulation.
 
 It contains extension methods for `ByteArray` allowing to read numbers in big-endian and little-endian 
@@ -15,7 +17,7 @@ and from `ByteArray`.
 Add the following to your `build.gradle` file:
 
 ```groovy
-implementation "no.nordicsemi.kotlin:data:0.1.0"
+implementation "no.nordicsemi.kotlin:data:<version>"
 ```
 
 ### Documentation
