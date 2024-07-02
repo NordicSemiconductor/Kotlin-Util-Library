@@ -20,6 +20,8 @@ Add the following to your `build.gradle` file:
 implementation "no.nordicsemi.kotlin:data:<version>"
 ```
 
+Artifacts can be found on [Maven Central repository](https://central.sonatype.com/artifact/no.nordicsemi.kotlin/data/versions).
+
 ### Documentation
 
 Dokka documentation can be found [here](https://nordicsemiconductor.github.io/Kotlin-Util-Library/).
