@@ -39,7 +39,6 @@ group = "no.nordicsemi.kotlin"
 nordicNexusPublishing {
     POM_ARTIFACT_ID = "data"
     POM_NAME = "Kotlin data utils."
-
     POM_DESCRIPTION = "Set of extension methods for writing and reading bytes to and from a ByteArray."
     POM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
     POM_SCM_URL = "https://github.com/NordicSemiconductor/Kotlin-Util-Library"
