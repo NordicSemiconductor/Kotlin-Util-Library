@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.0.0"
+kotlin = "2.1.0"
 
 nordicPlugins = "2.4"
 dokkaPlugin = "1.9.20"
