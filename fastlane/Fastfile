@@ -25,6 +25,6 @@ platform :android do
 
   desc "Generate docs."
   lane :generateDocs do
-    gradle(task: "dokkaHtmlMultiModule")
+    gradle(task: "dokkaGenerate")
   end
 end

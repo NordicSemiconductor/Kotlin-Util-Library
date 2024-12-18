@@ -49,3 +49,9 @@ nordicNexusPublishing {
 dependencies {
     testImplementation(libs.kotlin.junit)
 }
+
+dokka {
+    dokkaSourceSets.named("main") {
+        includes.from("Module.md")
+    }
+}
