@@ -85,6 +85,9 @@ fun UByte.toByteArray() = ByteArray(1) { this.toByte() }
 
 //--------------------------------------------------------------------------------------------------
 
+/**
+ * Integer format enumeration.
+ */
 enum class IntFormat {
     /** 8-bit unsigned integer. */
     UINT8,
@@ -110,9 +113,11 @@ enum class IntFormat {
             UINT24, INT24 -> 3
             UINT32, INT32 -> 4
         }
-
 }
 
+/**
+ * Floating point format enumeration.
+ */
 enum class FloatFormat {
     /** 32-bit IEEE 754 floating point. */
     IEEE_754_SINGLE_PRECISION,
@@ -128,6 +133,9 @@ enum class FloatFormat {
         }
 }
 
+/**
+ * Double precision floating point format enumeration.
+ */
 enum class DoubleFormat {
     /** 64-bit IEEE 754 floating point. */
     IEEE_754_DOUBLE_PRECISION,

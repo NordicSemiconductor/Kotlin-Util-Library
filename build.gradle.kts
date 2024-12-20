@@ -1,13 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.dokka)
+    alias(libs.plugins.nordic.nexus.kotlin) apply false
+
+    // This plugin is used to generate Dokka documentation.
+    alias(libs.plugins.kotlin.dokka) apply false
+    // This applies Nordic look & feel to generated Dokka documentation.
+    // https://github.com/NordicSemiconductor/Android-Gradle-Plugins/blob/main/plugins/src/main/kotlin/NordicDokkaPlugin.kt
+    alias(libs.plugins.nordic.dokka) apply true
 }
 
-subprojects {
-    apply(plugin = "org.jetbrains.dokka")
-}
-
-tasks.dokkaHtmlMultiModule.configure {
-    outputDirectory.set(rootDir.resolve("docs"))
+// Configure main Dokka page
+dokka {
+    moduleName.set("Kotlin Util Libraries")
+    pluginsConfiguration.html {
+        homepageLink.set("https://github.com/NordicSemiconductor/Kotlin-Util-Library")
+    }
 }

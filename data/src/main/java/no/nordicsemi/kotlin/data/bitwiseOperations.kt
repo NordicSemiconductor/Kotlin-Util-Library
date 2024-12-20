@@ -185,17 +185,112 @@ infix fun ByteArray.xor(other: ByteArray): ByteArray {
 
 // -------------------------------------------------------------------------------------------------
 
+/**
+ * Binary AND operation on a [Byte] type.
+ *
+ * @receiver The first byte.
+ * @param other The second byte.
+ * @return The result of the AND operation.
+ */
 infix fun Byte.and(other: Int): Byte = (this.toInt() and other).toByte()
+
+/**
+ * Binary OR operation on a [Byte] type.
+ *
+ * @receiver The first byte.
+ * @param other The second byte.
+ * @return The result of the OR operation.
+ */
 infix fun Byte.or(other: Int): Byte = (this.toInt() or other).toByte()
+
+/**
+ * Binary XOR operation on a [Byte] type.
+ *
+ * @receiver The first byte.
+ * @param other The second byte.
+ * @return The result of the XOR operation.
+ */
 infix fun Byte.xor(other: Int): Byte = (this.toInt() xor other).toByte()
+
+/**
+ * Binary AND operation on a [UByte] type.
+ *
+ * @receiver The first unsigned byte.
+ * @param other The second byte.
+ * @return The result of the AND operation.
+ */
 infix fun UByte.and(other: Int): UByte = (this.toInt() and other).toUByte()
+
+/**
+ * Binary OR operation on a [UByte] type.
+ *
+ * @receiver The first unsigned byte.
+ * @param other The second byte.
+ * @return The result of the OR operation.
+ */
 infix fun UByte.or(other: Int): UByte = (this.toInt() or other).toUByte()
+
+/**
+ * Binary XOR operation on a [UByte] type.
+ *
+ * @receiver The first unsigned byte.
+ * @param other The second byte.
+ * @return The result of the XOR operation.
+ */
 infix fun UByte.xor(other: Int): UByte = (this.toInt() xor other).toUByte()
+
+/**
+ * Binary AND operation on a [Short] type.
+ *
+ * @receiver The first short.
+ * @param other The second byte.
+ * @return The result of the AND operation.
+ */
 infix fun Short.and(other: Int): Short = (this.toInt() and other).toShort()
+
+/**
+ * Binary OR operation on a [Short] type.
+ *
+ * @receiver The first short.
+ * @param other The second byte.
+ * @return The result of the OR operation.
+ */
 infix fun Short.or(other: Int): Short = (this.toInt() or other).toShort()
+
+/**
+ * Binary XOR operation on a [Short] type.
+ *
+ * @receiver The first short.
+ * @param other The second byte.
+ * @return The result of the XOR operation.
+ */
 infix fun Short.xor(other: Int): Short = (this.toInt() xor other).toShort()
+
+/**
+ * Binary AND operation on a [UShort] type.
+ *
+ * @receiver The first unsigned short.
+ * @param other The second byte.
+ * @return The result of the AND operation.
+ */
 infix fun UShort.and(other: Int): UShort = (this.toInt() and other).toUShort()
+
+/**
+ * Binary OR operation on a [UShort] type.
+ *
+ * @receiver The first unsigned short.
+ * @param other The second byte.
+ * @return The result of the OR operation.
+ */
 infix fun UShort.or(other: Int): UShort = (this.toInt() or other).toUShort()
+
+/**
+ * Binary XOR operation on a [UShort] type.
+ *
+ * @receiver The first unsigned short.
+ * @param other The second byte.
+ * @return The result of the XOR operation.
+ */
 infix fun UShort.xor(other: Int): UShort = (this.toInt() xor other).toUShort()
 
 // -------------------------------------------------------------------------------------------------
@@ -259,8 +354,7 @@ infix fun Short.shl(bitCount: Int): Short = (this.toInt() shl bitCount).toShort(
 infix fun Short.shr(bitCount: Int): Short = (this.toInt() ushr bitCount).toShort()
 
 /**
- * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with
- * copies of the sign bit.
+ * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with zeros.
  *
  * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
  * The shift distance actually used is therefore always in the range `0..15`.
@@ -276,8 +370,7 @@ infix fun Short.ushr(bitCount: Int): Short = ((this.toInt() and 0xFFFF) ushr bit
 infix fun UShort.shl(bitCount: Int): UShort = (this.toInt() shl bitCount).toUShort()
 
 /**
- * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with
- * copies of the sign bit.
+ * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with zeros.
  *
  * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
  * The shift distance actually used is therefore always in the range `0..15`.
