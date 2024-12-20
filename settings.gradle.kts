@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Kotlin-Util-Library"
+rootProject.name = "Kotlin Util Library"
 
 include(":data")
  

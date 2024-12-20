@@ -12,7 +12,6 @@ plugins {
 
 // Configure main Dokka page
 dokka {
-    moduleName.set("Kotlin Util Libraries")
     pluginsConfiguration.html {
         homepageLink.set("https://github.com/NordicSemiconductor/Kotlin-Util-Library")
     }
