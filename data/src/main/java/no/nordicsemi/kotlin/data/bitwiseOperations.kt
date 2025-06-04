@@ -298,8 +298,7 @@ infix fun UShort.xor(other: Int): UShort = (this.toInt() xor other).toUShort()
 /**
  * Shifts this value left by the [bitCount] number of bits.
  *
- * Note that only the three lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..7`.
+ * Note that the result is a [Byte]. If [bitCount] is greater than 7, the result will be 0.
  */
 infix fun Byte.shl(bitCount: Int): Byte = (this.toInt() shl bitCount).toByte()
 
@@ -307,40 +306,35 @@ infix fun Byte.shl(bitCount: Int): Byte = (this.toInt() shl bitCount).toByte()
  * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with
  * copies of the sign bit.
  *
- * Note that only the three lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..7`.
+ * Note that the result is a [Byte]. If [bitCount] is greater than 6, the result will be 0 or -1.
  */
 infix fun Byte.shr(bitCount: Int): Byte = (this.toInt() shr bitCount).toByte()
 
 /**
  * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with zeros.
  *
- * Note that only the three lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..7`.
+ * Note that the result is a [Byte]. If [bitCount] is greater than 7, the result will be 0.
  */
 infix fun Byte.ushr(bitCount: Int): Byte = ((this.toInt() and 0xFF) ushr bitCount).toByte()
 
 /**
  * Shifts this value left by the [bitCount] number of bits.
  *
- * Note that only the three lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..7`.
+ * Note that the result is a [UByte]. If [bitCount] is greater than 7, the result will be 0.
  */
 infix fun UByte.shl(bitCount: Int): UByte = (this.toUInt() shl bitCount).toUByte()
 
 /**
  * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with zeros.
  *
- * Note that only the three lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..7`.
+ * Note that the result is a [UByte]. If [bitCount] is greater than 7, the result will be 0.
  */
 infix fun UByte.shr(bitCount: Int): UByte = (this.toUInt() shr bitCount).toUByte()
 
 /**
  * Shifts this value left by the [bitCount] number of bits.
  *
- * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..15`.
+ * Note that the result is a [Short]. If [bitCount] is greater than 15, the result will be 0.
  */
 infix fun Short.shl(bitCount: Int): Short = (this.toInt() shl bitCount).toShort()
 
@@ -348,31 +342,27 @@ infix fun Short.shl(bitCount: Int): Short = (this.toInt() shl bitCount).toShort(
  * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with
  * copies of the sign bit.
  *
- * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..15`.
+ * Note that the result is a [Short]. If [bitCount] is greater than 14, the result will be 0 or -1.
  */
 infix fun Short.shr(bitCount: Int): Short = (this.toInt() ushr bitCount).toShort()
 
 /**
  * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with zeros.
  *
- * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..15`.
+ * Note that the result is a [Short]. If [bitCount] is greater than 15, the result will be 0.
  */
 infix fun Short.ushr(bitCount: Int): Short = ((this.toInt() and 0xFFFF) ushr bitCount).toShort()
 
 /**
  * Shifts this value left by the [bitCount] number of bits.
  *
- * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..15`.
+ * Note that the result is a [UShort]. If [bitCount] is greater than 15, the result will be 0.
  */
 infix fun UShort.shl(bitCount: Int): UShort = (this.toInt() shl bitCount).toUShort()
 
 /**
  * Shifts this value right by the [bitCount] number of bits, filling the leftmost bits with zeros.
  *
- * Note that only the four lowest-order bits of the [bitCount] are used as the shift distance.
- * The shift distance actually used is therefore always in the range `0..15`.
+ * Note that the result is a [UShort]. If [bitCount] is greater than 15, the result will be 0.
  */
 infix fun UShort.shr(bitCount: Int): UShort = (this.toInt() ushr bitCount).toUShort()
