@@ -106,7 +106,10 @@ enum class IntFormat {
     /** 32-bit signed integer. */
     INT32;
 
-    internal val length: Int
+    /**
+     * The length of the format in bytes.
+     */
+    val length: Int
         get() = when (this) {
             UINT8, INT8 -> 1
             UINT16, INT16 -> 2
@@ -126,7 +129,10 @@ enum class FloatFormat {
     /** 16-bit IEEE 11073-20601 floating point. */
     IEEE_11073_16_BIT;
 
-    internal val length: Int
+    /**
+     * The length of the format in bytes.
+     */
+    val length: Int
         get() = when (this) {
             IEEE_754_SINGLE_PRECISION, IEEE_11073_32_BIT -> 4
             IEEE_11073_16_BIT -> 2
@@ -138,7 +144,12 @@ enum class FloatFormat {
  */
 enum class DoubleFormat {
     /** 64-bit IEEE 754 floating point. */
-    IEEE_754_DOUBLE_PRECISION,
+    IEEE_754_DOUBLE_PRECISION;
+
+    /**
+     * The length of the format in bytes.
+     */
+    val length: Int = 8
 }
 
 /**
@@ -148,7 +159,8 @@ enum class DoubleFormat {
  * @param format The format or the Int value to read.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return Int.
- * @throws IllegalArgumentException If the length of byte array is not >= offset + 4.
+ * @throws IllegalArgumentException If the length of byte array is less than the offset plus
+ * format length.
  */
 fun ByteArray.getInt(
     offset: Int,
@@ -160,7 +172,7 @@ fun ByteArray.getInt(
     }
     return when (format) {
         IntFormat.UINT8 -> this[offset].toInt() and 0xFF
-        IntFormat.UINT16 -> ByteBuffer.wrap(this, offset, 2).order(order).short.toInt() and 0xFFFF
+        IntFormat.UINT16 -> ByteBuffer.wrap(this, offset, format.length).order(order).short.toInt() and 0xFFFF
         IntFormat.UINT24 -> when (order) {
             ByteOrder.BIG_ENDIAN ->
                 (this[offset + 0].toInt() and 0xFF shl 16) or
@@ -171,9 +183,9 @@ fun ByteArray.getInt(
                 (this[offset + 1].toInt() and 0xFF shl 8) or
                 (this[offset + 0].toInt() and 0xFF)
         }
-        IntFormat.UINT32 -> ByteBuffer.wrap(this, offset, 4).order(order).int
+        IntFormat.UINT32 -> ByteBuffer.wrap(this, offset, format.length).order(order).int
         IntFormat.INT8 -> this[offset].toInt()
-        IntFormat.INT16 -> ByteBuffer.wrap(this, offset, 2).order(order).short.toInt()
+        IntFormat.INT16 -> ByteBuffer.wrap(this, offset, format.length).order(order).short.toInt()
         IntFormat.INT24 -> when (order) {
             ByteOrder.BIG_ENDIAN ->
                 (this[offset + 0].toInt() shl 16) or
@@ -184,7 +196,7 @@ fun ByteArray.getInt(
                 (this[offset + 1].toInt() and 0xFF shl 8) or
                 (this[offset + 0].toInt() and 0xFF)
         }
-        IntFormat.INT32 -> ByteBuffer.wrap(this, offset, 4).order(order).int
+        IntFormat.INT32 -> ByteBuffer.wrap(this, offset, format.length).order(order).int
     }
 }
 
@@ -194,7 +206,7 @@ fun ByteArray.getInt(
  * @param offset The index to start from.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return Int.
- * @throws IllegalArgumentException If the length of byte array is not >= offset + 4.
+ * @throws IllegalArgumentException If the length of byte array is less than offset + 4.
  */
 fun ByteArray.getInt(
     offset: Int,
@@ -210,14 +222,14 @@ fun ByteArray.getInt(
  * @param format The format or the Int value to read.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return UInt.
- * @throws IllegalArgumentException If the length of byte array is not >= offset + 4.
+ * @throws IllegalArgumentException If the length of byte array is less than offset + 4.
  */
 fun ByteArray.getUInt(
     offset: Int,
     format: IntFormat = IntFormat.UINT32,
     order: ByteOrder = ByteOrder.BIG_ENDIAN
 ): UInt {
-    require(offset >= 0 && size >= offset + 4) {
+    require(offset >= 0 && size >= offset + format.length) {
         throw IndexOutOfBoundsException("Cannot return an UInt from an array of size $size from offset $offset")
     }
     return getInt(offset, format, order).toUInt()
@@ -229,13 +241,13 @@ fun ByteArray.getUInt(
  * @param offset The index to start from.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return Short.
- * @throws IndexOutOfBoundsException If the length of the byte array is not >= offset + 2.
+ * @throws IndexOutOfBoundsException If the length of the byte array is less than offset + [Short.SIZE_BYTES].
  */
 fun ByteArray.getShort(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): Short {
-    require(offset >= 0 && size >= offset + 2) {
+    require(offset >= 0 && size >= offset + Short.SIZE_BYTES) {
         throw IndexOutOfBoundsException("Cannot return a Short from an array of size $size from offset $offset")
     }
-    return ByteBuffer.wrap(this, offset, 2).order(order).short
+    return ByteBuffer.wrap(this, offset, Short.SIZE_BYTES).order(order).short
 }
 
 /**
@@ -244,13 +256,13 @@ fun ByteArray.getShort(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): Sh
  * @param offset The index to start from.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return UShort.
- * @throws IndexOutOfBoundsException If the length of the byte array is not >= offset + 2.
+ * @throws IndexOutOfBoundsException If the length of the byte array is less than offset + [UShort.SIZE_BYTES].
  */
 fun ByteArray.getUShort(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): UShort {
-    require(offset >= 0 && size >= offset + 2) {
+    require(offset >= 0 && size >= offset + UShort.SIZE_BYTES) {
         throw IndexOutOfBoundsException("Cannot return a UShort from an array of size $size from offset $offset")
     }
-    return ByteBuffer.wrap(this, offset, 2).order(order).short.toUShort()
+    return ByteBuffer.wrap(this, offset, UShort.SIZE_BYTES).order(order).short.toUShort()
 }
 
 /**
@@ -260,7 +272,8 @@ fun ByteArray.getUShort(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): U
  * @param format The format or the Float value to read.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return Float.
- * @throws IndexOutOfBoundsException If the length of the byte array is shorter than the type length.
+ * @throws IndexOutOfBoundsException If the length of the byte array is shorter than offset plus
+ * the format length.
  */
 fun ByteArray.getFloat(
     offset: Int,
@@ -271,7 +284,7 @@ fun ByteArray.getFloat(
         throw IndexOutOfBoundsException("Cannot return a $format Float from an array of size $size from offset $offset")
     }
     return when (format) {
-        FloatFormat.IEEE_754_SINGLE_PRECISION -> ByteBuffer.wrap(this, offset, 4).order(order).float
+        FloatFormat.IEEE_754_SINGLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length).order(order).float
         FloatFormat.IEEE_11073_32_BIT -> {
             val raw = getInt(offset, IntFormat.INT32, order)
             // The following information is defined in https://www.iso.org/standard/84781.html
@@ -307,17 +320,17 @@ fun ByteArray.getFloat(
  * @param offset The index to start from.format
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  * @return Double.
- * @throws IndexOutOfBoundsException If the length of the byte array is not >= offset + 8.
+ * @throws IndexOutOfBoundsException If the length of the byte array is less than offset + 8.
  */
 fun ByteArray.getDouble(
     offset: Int,
     format: DoubleFormat = DoubleFormat.IEEE_754_DOUBLE_PRECISION,
     order: ByteOrder = ByteOrder.BIG_ENDIAN
 ): Double {
-    require(offset >= 0 && size >= offset + 8) {
+    require(offset >= 0 && size >= offset + format.length) {
         throw IndexOutOfBoundsException("Cannot return a Double from an array of size $size from offset $offset")
     }
     return when (format) {
-        DoubleFormat.IEEE_754_DOUBLE_PRECISION -> ByteBuffer.wrap(this, offset, 8).order(order).double
+        DoubleFormat.IEEE_754_DOUBLE_PRECISION -> ByteBuffer.wrap(this, offset, format.length).order(order).double
     }
 }
