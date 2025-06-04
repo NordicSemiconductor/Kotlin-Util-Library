@@ -41,7 +41,7 @@ internal class ByteArrayOperationsTest {
 
     @Test
     fun intToByteArray() {
-        val value: Int = -2023406815
+        val value: Int = -2023406815 // 0x87_65_43_21
         val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
         val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN)
         assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21), bigEndian)
@@ -50,11 +50,33 @@ internal class ByteArrayOperationsTest {
 
     @Test
     fun uIntToByteArray() {
-        val value = 2271560481u
+        val value = 2271560481u // 0x87_65_43_21
         val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN)
         val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN)
         assertContentEquals(byteArrayOf(0x87.toByte(), 0x65, 0x43, 0x21), bigEndian)
         assertContentEquals(byteArrayOf(0x21, 0x43, 0x65, 0x87.toByte()), littleEndian)
+    }
+
+    @Test
+    fun uInt24ToByteArray() {
+        val value = 0xF23456u
+        val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN, length = IntFormat.INT24.length)
+        val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN, length = IntFormat.INT24.length)
+        assertEquals(bigEndian.size, 3)
+        assertEquals(littleEndian.size, 3)
+        assertContentEquals(byteArrayOf(0xF2.toByte(), 0x34, 0x56), bigEndian)
+        assertContentEquals(byteArrayOf(0x56, 0x34, 0xF2.toByte()), littleEndian)
+    }
+
+    @Test
+    fun int16ToByteArray() {
+        val value = -6000 // 0xE890
+        val bigEndian = value.toByteArray(ByteOrder.BIG_ENDIAN, length = IntFormat.INT16.length)
+        val littleEndian = value.toByteArray(ByteOrder.LITTLE_ENDIAN, length = IntFormat.INT16.length)
+        assertEquals(bigEndian.size, 2)
+        assertEquals(littleEndian.size, 2)
+        assertContentEquals(byteArrayOf(0xE8.toByte(), 0x90.toByte()), bigEndian)
+        assertContentEquals(byteArrayOf(0x90.toByte(), 0xE8.toByte()), littleEndian)
     }
 
     @Test

@@ -38,21 +38,43 @@ import java.nio.ByteOrder
 import kotlin.math.pow
 
 /**
- * Converts an Int to a byte array using the given endianness.
+ * Converts an `Int` to a byte array using the given endianness.
+ *
+ * The optional [length] parameter allows you to specify the actual length of the field,
+ * to convert 8-bit, 16-bit or 24-bit integers stored in an `Int` to a byte array.
+ * @param length The length of the field, in bytes, within the range of 1-[Int.SIZE_BYTES] with
+ * default value equal to [Int.SIZE_BYTES] bytes.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
+ * @throws IllegalArgumentException If the length is not within the range of 1 to [Int.SIZE_BYTES].
  */
-fun Int.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN) = when (order) {
-    ByteOrder.BIG_ENDIAN -> ByteArray(4) { (this ushr (24 - it * 8)).toByte() }
-    else ->                 ByteArray(4) { (this ushr (it * 8)).toByte() }
+fun Int.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = Int.SIZE_BYTES): ByteArray {
+    require(length > 0 && length <= Int.SIZE_BYTES) {
+        "Length must be between 1 and ${Int.SIZE_BYTES} bytes, got $length"
+    }
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> ByteArray(length) { (this ushr (((length - 1) * 8) - it * 8)).toByte() }
+        else ->                 ByteArray(length) { (this ushr (it * 8)).toByte() }
+    }
 }
 
 /**
- * Converts an UInt to a byte array using the given endianness.
+ * Converts an `UInt` to a byte array using the given endianness.
+ *
+ * The optional [length] parameter allows you to specify the actual length of the field,
+ * to convert 8-bit, 16-bit or 24-bit integers stored in an `UInt` to a byte array.
+ * @param length The length of the field, in bytes, within the range of 1-[UInt.SIZE_BYTES] with
+ * default value equal to [UInt.SIZE_BYTES] bytes.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
+ * @throws IllegalArgumentException If the length is not within the range of 1 to [UInt.SIZE_BYTES].
  */
-fun UInt.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN) = when (order) {
-    ByteOrder.BIG_ENDIAN -> ByteArray(4) { (this shr (24 - it * 8)).toByte() }
-    else ->                 ByteArray(4) { (this shr (it * 8)).toByte() }
+fun UInt.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN, length: Int = UInt.SIZE_BYTES): ByteArray {
+    require(length > 0 && length <= UInt.SIZE_BYTES) {
+        "Length must be between 1 and ${UInt.SIZE_BYTES} bytes, got $length"
+    }
+    return when (order) {
+        ByteOrder.BIG_ENDIAN -> ByteArray(length) { (this shr (((length - 1) * 8) - it * 8)).toByte() }
+        else -> ByteArray(length) { (this shr (it * 8)).toByte() }
+    }
 }
 
 /**
