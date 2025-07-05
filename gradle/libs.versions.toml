@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.1.21"
 
-nordicPlugins = "2.7"
+nordicPlugins = "2.8.1"
 dokkaPlugin = "2.0.0"
 
 [libraries]
