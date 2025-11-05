@@ -35,17 +35,19 @@ package no.nordicsemi.kotlin.data
 
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.util.UUID
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 /**
- * Converts a 128-bit UUID to a byte array.
+ * Converts a 128-bit Uuid to a byte array.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
  */
 // TODO: 2021-08-26: Add support for 16-bit and 32-bit UUIDs.
-fun UUID.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN): ByteArray =
-    ByteBuffer.wrap(ByteArray(16))
-        .order(order)
-        .apply {
+@OptIn(ExperimentalUuidApi::class)
+fun Uuid.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN): ByteArray = ByteBuffer.wrap(ByteArray(16))
+    .order(order)
+    .apply {
+        toLongs { mostSignificantBits, leastSignificantBits ->
             if (order == ByteOrder.BIG_ENDIAN) {
                 putLong(mostSignificantBits)
                 putLong(leastSignificantBits)
@@ -54,37 +56,40 @@ fun UUID.toByteArray(order: ByteOrder = ByteOrder.BIG_ENDIAN): ByteArray =
                 putLong(mostSignificantBits)
             }
         }
-        .array()
+    }
+    .array()
 
 /**
- * Converts a byte array to a 128-bit UUID.
+ * Converts a byte array to a 128-bit Uuid.
  * @param offset The index to start from.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
- * @return UUID
+ * @return Uuid
  * @throws IllegalArgumentException If the byte array is shorter than 16 bytes long.
  */
-fun ByteArray.getUuid(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): UUID {
+@OptIn(ExperimentalUuidApi::class)
+fun ByteArray.getUuid(offset: Int, order: ByteOrder = ByteOrder.BIG_ENDIAN): Uuid {
     require(offset >= 0 && size >= offset + 16) {
-        throw IndexOutOfBoundsException("Cannot return a UUID from an array of size $size from offset $offset")
+        throw IndexOutOfBoundsException("Cannot return a Uuid from an array of size $size from offset $offset")
     }
     val buffer = ByteBuffer.wrap(this).order(order).position(offset)
     return when (order) {
-        ByteOrder.BIG_ENDIAN -> UUID(buffer.long, buffer.long)
+        ByteOrder.BIG_ENDIAN -> Uuid.fromLongs(buffer.long, buffer.long)
         else -> {
             val leastSignificantBits = buffer.long
             val mostSignificantBits = buffer.long
-            UUID(mostSignificantBits, leastSignificantBits)
+            Uuid.fromLongs(mostSignificantBits, leastSignificantBits)
         }
     }
 }
 
 /**
- * Converts a byte array to a 128-bit UUID.
+ * Converts a byte array to a 128-bit Uuid.
  * @param order The byte order, default is [ByteOrder.BIG_ENDIAN].
- * @return UUID
+ * @return Uuid
  * @throws IllegalArgumentException If the byte array is not 16 bytes long.
  */
-fun ByteArray.toUuid(order: ByteOrder = ByteOrder.BIG_ENDIAN): UUID {
+@OptIn(ExperimentalUuidApi::class)
+fun ByteArray.toUuid(order: ByteOrder = ByteOrder.BIG_ENDIAN): Uuid {
     require(size == 16) {
         throw IndexOutOfBoundsException("Array is $size bytes long, expected 16 bytes")
     }

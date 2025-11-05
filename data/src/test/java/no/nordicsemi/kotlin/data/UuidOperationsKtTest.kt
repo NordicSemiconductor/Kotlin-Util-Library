@@ -32,16 +32,18 @@
 package no.nordicsemi.kotlin.data
 
 import java.nio.ByteOrder
-import java.util.UUID
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 internal class UuidOperationsKtTest {
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun toByteArray_BigEndian() {
-        val uuid = UUID.fromString("00112233-4455-6677-8899-AABBCCDDEEFF")
+        val uuid = Uuid.parse("00112233-4455-6677-8899-AABBCCDDEEFF")
         val byteArray = uuid.toByteArray(ByteOrder.BIG_ENDIAN)
         val expected = byteArrayOf(
             0x00, 0x11, 0x22, 0x33,
@@ -52,9 +54,10 @@ internal class UuidOperationsKtTest {
         assertContentEquals(expected, byteArray)
     }
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun toByteArray_LittleEndian() {
-        val uuid = UUID.fromString("00001530-1212-EFDE-1523-785FEABCD123") // Legacy DFU Service UUID
+        val uuid = Uuid.parse("00001530-1212-EFDE-1523-785FEABCD123") // Legacy DFU Service Uuid
         val byteArray = uuid.toByteArray(ByteOrder.LITTLE_ENDIAN)
         val expected = byteArrayOf(
             0x23, 0xD1.toByte(), 0xBC.toByte(), 0xEA.toByte(),
@@ -65,6 +68,7 @@ internal class UuidOperationsKtTest {
         assertContentEquals(expected, byteArray)
     }
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun getUuid_BigEndian() {
         val array = byteArrayOf(
@@ -75,10 +79,11 @@ internal class UuidOperationsKtTest {
             0xCC.toByte(), 0xDD.toByte(), 0xEE.toByte(), 0xFF.toByte(),
         )
         val uuid = array.getUuid(4, ByteOrder.BIG_ENDIAN)
-        val expected = UUID.fromString("00112233-4455-6677-8899-AABBCCDDEEFF")
+        val expected = Uuid.parse("00112233-4455-6677-8899-AABBCCDDEEFF")
         assertEquals(expected, uuid)
     }
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun getUuid_LittleEndian() {
         val array = byteArrayOf(
@@ -89,10 +94,11 @@ internal class UuidOperationsKtTest {
             0x30, 0x15, 0x00, 0x00,
         )
         val uuid = array.getUuid(4, ByteOrder.LITTLE_ENDIAN)
-        val expected = UUID.fromString("00001530-1212-EFDE-1523-785FEABCD123")
+        val expected = Uuid.parse("00001530-1212-EFDE-1523-785FEABCD123")
         assertEquals(expected, uuid)
     }
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun toUuid_BigEndian() {
         val array = byteArrayOf(
@@ -102,10 +108,11 @@ internal class UuidOperationsKtTest {
             0xCC.toByte(), 0xDD.toByte(), 0xEE.toByte(), 0xFF.toByte(),
         )
         val uuid = array.toUuid(ByteOrder.BIG_ENDIAN)
-        val expected = UUID.fromString("00112233-4455-6677-8899-AABBCCDDEEFF")
+        val expected = Uuid.parse("00112233-4455-6677-8899-AABBCCDDEEFF")
         assertEquals(expected, uuid)
     }
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun toUuid_LittleEndian() {
         val array = byteArrayOf(
@@ -115,13 +122,14 @@ internal class UuidOperationsKtTest {
             0x30, 0x15, 0x00, 0x00,
         )
         val uuid = array.toUuid(ByteOrder.LITTLE_ENDIAN)
-        val expected = UUID.fromString("00001530-1212-EFDE-1523-785FEABCD123")
+        val expected = Uuid.parse("00001530-1212-EFDE-1523-785FEABCD123")
         assertEquals(expected, uuid)
     }
 
+    @OptIn(ExperimentalUuidApi::class)
     @Test
     fun convertUuid() {
-        val uuid1 = UUID.randomUUID()
+        val uuid1 = Uuid.random()
         val array = uuid1.toByteArray(order = ByteOrder.BIG_ENDIAN)
         val uuid2 = array.toUuid(order = ByteOrder.BIG_ENDIAN)
         assertEquals(uuid1, uuid2)
