@@ -2,7 +2,7 @@
 kotlin = "2.1.21"
 
 nordicPlugins = "2.7"
-dokkaPlugin = "2.0.0"
+dokkaPlugin = "2.1.0"
 
 [libraries]
 kotlin-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", version.ref = "kotlin" }
